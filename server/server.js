@@ -16,10 +16,10 @@ const db = mysql.createConnection({
 
 db.connect(err => {
     if (err) {
-        console.error('Error connecting to MySQL database:', err);
+        console.error('Error connecting to db:', err);
         return;
     }
-    console.log('Connected to MySQL database');
+    console.log('Connected to db');
 });
 
 // Login route
