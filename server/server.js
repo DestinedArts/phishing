@@ -1,11 +1,15 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -20,6 +24,11 @@ db.connect(err => {
         return;
     }
     console.log('Connected to db');
+});
+
+// Route for serving the login page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'insta.html'));
 });
 
 // Login route
