@@ -50,7 +50,7 @@ h1 {
     top: 60px;
 }
 
-.login input[type="text"],
+.login input[type="email"],
 .login input[type="password"] {
     width: 268px;
     height: 38px;
